@@ -1,0 +1,47 @@
+.input {
+    padding: 7px 15px;
+    border-radius: 50px;
+    margin: 30px 15px;
+}
+
+.button {
+    width: 100px;
+    padding: 7px 15px;
+    background-color: #234987;
+    border-radius: 50px;
+    margin: 30px 15px;
+    color: #fff;
+}
+
+.events {
+    margin: auto;
+    &__list {
+        list-style: none;
+        &__item {
+            padding: 20px 0;
+            &:nth-child(2n - 1) {
+                background-color: aliceblue;
+            }
+            &__player {
+                font-size: 18px;
+            }
+            &__events {
+                &__items {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    border-collapse: collapse;
+                    td, th {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 8px;
+                    }
+                }
+                &__title {
+                    padding: 15px;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
