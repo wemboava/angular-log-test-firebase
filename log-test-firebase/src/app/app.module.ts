@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http'
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 import * as firebase from "firebase";
 import { AppComponent } from './app.component';
 import { LogComponent } from './log/log.component';
@@ -13,7 +14,8 @@ import { ServerService } from './services/server.service'
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   providers: [ServerService],
   bootstrap: [AppComponent]

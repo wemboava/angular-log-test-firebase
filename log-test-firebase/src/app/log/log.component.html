@@ -1,4 +1,26 @@
-<label for="teste">
-  <input id="teste" type="text" />
+<label for="test">
+  <input class="input" id="test" type="text" [(ngModel)]="playerId" />
 </label>
-<button (click)="send()">Send</button>
+<button class="button" (click)="send()">Send</button>
+<button *ngIf="userId" class="button" (click)="updateLog()">update</button>
+
+<div class="events">
+  <ul class="events__list">
+    <li class="events__list__item" *ngFor="let log of data">
+      <p class="events__list__item__player">Player ID: {{ log.playerId }}</p>
+      <div class="events__list__item__events">
+        <h5 class="events__list__item__events__title">Events</h5>
+        <table class="events__list__item__events__items">
+          <tr>
+            <th>Exercise ID</th>
+            <th>Date Time</th>
+          </tr>
+          <tr *ngFor="let event of log.events">
+            <td>{{event.EventId}}</td>
+            <td>{{event.deteTime}}</td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  </ul>
+</div>

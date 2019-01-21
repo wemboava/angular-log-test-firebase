@@ -11,34 +11,41 @@ import config from '../config'
 })
 export class LogComponent implements OnInit {
 
+  data: any;
+  currentPlayer: any;
+  playerId: string;
+  userId: string;
+
   constructor(
     public serverService: ServerService
   ) {}
 
   ngOnInit() {
-    // firebase.initializeApp(config);
-    // firebase.firestore();
+    this.getLogs();
   }
   send() {
-    this.serverService.updatelog(
+    this.serverService.postLog(
       {
-        "PlayerId": "120.0.0.1-2019-01-18-13",
-        "events": [
-          {
-            "deteTime": "2019-0118",
-            "EventId": 1,
+        "playerId": this.playerId,
+        "events": [{
+            "deteTime": "2019-01-18",
+            "EventId": 2,
             "ExerciseId": 1
           },
           {
             "deteTime": "2019-0118",
-            "EventId": 1,
-            "ExerciseId": 1
+            "EventId": 2,
+            "ExerciseId": 2
           }
         ]
-    } 
+      }  
     )
       .subscribe(
-        (response)=> console.log(response),
+        (response)=> {
+          this.userId = response.json().name
+          localStorage.setItem('userKey', response.json().name)
+          this.getLogs();
+        },
         (error) => console.log('error', error)
       )
   }
@@ -47,9 +54,31 @@ export class LogComponent implements OnInit {
     this.serverService.getAllLog()
       .subscribe(
         (response) => {
-          const data = response.json()
+          this.data = Object.values(response.json()).reverse()
+          this.currentPlayer = Object.assign(this.data)[0]
         },
         (error) => console.log(error)
+      )
+  }
+
+  updateLog() {
+    this.currentPlayer.events.push(
+      {
+        "deteTime": "2019-0118",
+        "EventId": 3,
+        "ExerciseId": 3
+      })
+
+    this.serverService.updatelog(
+      this.currentPlayer,
+      localStorage.getItem('userKey')
+    )
+      .subscribe(
+        (response)=> {
+          this.getLogs();
+          this.currentPlayer = response.json();
+        },
+        (error) => console.log('error', error)
       )
   }
 }
